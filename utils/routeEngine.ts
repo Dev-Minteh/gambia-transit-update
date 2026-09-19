@@ -12,7 +12,7 @@ export function findRoutesFrom(routes: any[], location: string) {
 export function findPath(routes: any[], start: string, destination: string){
   let currentLocation = start;
   const path = [];
-  while(currentLocation != destination){
+  while(currentLocation !== destination){
   const legs = findRoutesFrom(routes, currentLocation);
   if(legs.length === 0){
     return null;
@@ -24,13 +24,13 @@ export function findPath(routes: any[], start: string, destination: string){
   return path;
 }
 
-export function findAllPaths(routes: any[], currentLocation: string, destination: string, pathSoFar: any[]) {
+export function findAllPaths(routes: any[], currentLocation: string, destination: string, pathSoFar: any[]) : any[] {
   if (currentLocation === destination) {
     return [pathSoFar];
   }
 
   const legs = findRoutesFrom(routes, currentLocation); 
-  let allPaths = any[];
+  let allPaths: any[] = [];
 
   for (let i = 0; i < legs.length; i++) {
     const leg = legs[i];
@@ -77,7 +77,8 @@ export function rankRoutes(paths: any[], criteria: string ){
   }else if(criteria === "transfers"){
   return calculateTransfers(a) - calculateTransfers(b);
   }
-  })
+  return 0
+  });
   return sorted;
 }
 
