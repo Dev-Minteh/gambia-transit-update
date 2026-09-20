@@ -2,7 +2,7 @@
 "use client"
 import {routes} from "@/data/routes";
 import {findAllPaths, recommendRoute} from "@/utils/routeEngine"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export default function Home() {
 const [from, setFrom] = useState("");
 const [to, setTo] = useState("");
@@ -10,8 +10,17 @@ const [criteria, setCriteria] = useState("fare");
 const [results, setResults] = useState<any[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 
+useEffect(() => {
+  const savedFrom = localStorage.getItem("lastFrom");
+  const savedTo = localStorage.getItem("lastTo");
+  if (savedFrom) setFrom(savedFrom);
+  if (savedTo) setTo(savedTo);
+}, []);
+
 const  handleClick = () =>{
 setIsSearch(true);
+localStorage.setItem("lastFrom", from);
+localStorage.setItem("lastTo", to);
 const allPaths = findAllPaths(routes, from, to, []);
 const bestTrip = recommendRoute(allPaths, criteria);
 if (bestTrip === undefined) {
