@@ -2,10 +2,10 @@
 "use client"
 import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
-import {routes} from "@/data/routes";
 import {findAllPaths, recommendRoute} from "@/utils/routeEngine"
 import { useState, useEffect } from "react";
 export default function Home() {
+const [routes, setRoutes] = useState<any[]>([]);
 const [from, setFrom] = useState("");
 const [to, setTo] = useState("");
 const [criteria, setCriteria] = useState("fare"); 
@@ -13,11 +13,18 @@ const [results, setResults] = useState<any[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 
 useEffect(() => {
+  fetch("/api/routes")
+  .then((res) => res.json())
+  .then((data) => setRoutes(data))
+},[]);
+
+useEffect(() => {
   const savedFrom = localStorage.getItem("lastFrom");
   const savedTo = localStorage.getItem("lastTo");
   if (savedFrom) setFrom(savedFrom);
   if (savedTo) setTo(savedTo);
 }, []);
+
 
 const  handleClick = () =>{
 setIsSearch(true);
