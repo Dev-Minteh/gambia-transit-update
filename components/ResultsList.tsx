@@ -1,5 +1,6 @@
+import {  Route } from "@/types/index"
 type ResultsList = {
-    results: any[];
+    results: Route[];
     isSearch: boolean;
 }
 export default function ResultsList({results, isSearch} : ResultsList) {
@@ -8,7 +9,7 @@ export default function ResultsList({results, isSearch} : ResultsList) {
      {isSearch && results.length === 0 ? (
           <p className="bg-[#1e1e1e] border-l-4 border-[#14b8a6] p-3 mb-2 rounded">No route available.</p>
         ) : (
-        results.map((leg, i) => (
+        results.map((leg: Route, i: number) => (
         <p
         className="bg-[#1e1e1e] border-l-4 border-[#14b8a6] p-3 mb-2 rounded" 
         key={i}>

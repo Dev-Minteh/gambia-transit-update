@@ -1,15 +1,16 @@
 
 "use client"
+import {Route} from "@/types/index";
 import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
 import {findAllPaths, recommendRoute} from "@/utils/routeEngine"
 import { useState, useEffect } from "react";
 export default function Home() {
-const [routes, setRoutes] = useState<any[]>([]);
+const [routes, setRoutes] = useState<Route[]>([]);
 const [from, setFrom] = useState("");
 const [to, setTo] = useState("");
 const [criteria, setCriteria] = useState("fare"); 
-const [results, setResults] = useState<any[]>([]);
+const [results, setResults] = useState<Route[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 
 useEffect(() => {
@@ -21,8 +22,12 @@ useEffect(() => {
 useEffect(() => {
   const savedFrom = localStorage.getItem("lastFrom");
   const savedTo = localStorage.getItem("lastTo");
-  if (savedFrom) setFrom(savedFrom);
-  if (savedTo) setTo(savedTo);
+  // if (savedFrom) setFrom(savedFrom);
+  // if (savedTo) setTo(savedTo);
+   Promise.resolve().then(() => {
+    if (savedFrom) setFrom(savedFrom);
+    if (savedTo) setTo(savedTo);
+  });
 }, []);
 
 
@@ -30,7 +35,7 @@ const  handleClick = () =>{
 setIsSearch(true);
 localStorage.setItem("lastFrom", from);
 localStorage.setItem("lastTo", to);
-const allPaths = findAllPaths(routes, from, to, []);
+const allPaths: Route[][] = findAllPaths(routes, from, to, []);
 const bestTrip = recommendRoute(allPaths, criteria);
 if (bestTrip === undefined) {
     setResults([]);
