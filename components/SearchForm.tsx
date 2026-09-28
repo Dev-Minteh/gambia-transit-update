@@ -6,9 +6,10 @@ from: string;
   setTo: (value: string) => void;
   setCriteria: (value: string) => void;
   onSearch: () => void;
+  searchDisabled: boolean;
 };
 
-export default function SearchForm({from, to, setFrom, setTo, criteria, setCriteria, onSearch} : SearchFormProp) {
+export default function SearchForm({from, to, setFrom, setTo, criteria, setCriteria, onSearch, searchDisabled} : SearchFormProp) {
   return (
     <>
        <input type="text"
@@ -37,7 +38,10 @@ export default function SearchForm({from, to, setFrom, setTo, criteria, setCrite
     </select>
     <button 
     className="px-5 py-2 m-1 border-none rounded-md bg-[#14b8a6] text-[#121212] text-base font-bold cursor-pointer" 
-    onClick={onSearch}>search</button>
+    onClick={onSearch}
+    disabled={searchDisabled}
+    >{searchDisabled ? "Loading routes..." : "search"}</button>
     </>
   )
 }
+
