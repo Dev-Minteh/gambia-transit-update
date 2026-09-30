@@ -7,4 +7,10 @@ export type Route = {
   travelTime: number;
 };
 
+export type Stop = {
+    id:number;
+    name: string;
+    latitude: number;
+    longitude: number;
+}
 // export type Trip = Route[]; 

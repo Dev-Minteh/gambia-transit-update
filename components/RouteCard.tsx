@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Route } from "@/types/index";
+import { Route, Stop } from "@/types/index";
 import { calculateFare, calculateTravelTime, calculateTransfers } from "@/utils/routeEngine";
+import RouteMap from "./RouteMap";
 
 type RouteCardProps = {
   trip: Route[];
   index: number;
+  stops: Stop[];
 };
 
-export default function RouteCard({ trip, index }: RouteCardProps) {
+export default function RouteCard({ trip, index, stops }: RouteCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -34,6 +36,7 @@ export default function RouteCard({ trip, index }: RouteCardProps) {
               <span className="text-gray-400">| {leg.vehicle} | {leg.fare} GMD | {leg.travelTime} mins</span>
             </div>
           ))}
+          <RouteMap trip={trip} stops={stops}/>
         </div>
       )}
 

@@ -1,10 +1,11 @@
 
 "use client"
-import {Route} from "@/types/index";
+import {Route, Stop} from "@/types/index";
 import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
 import {findAllPaths, rankRoutes} from "@/utils/routeEngine"
 import { useState, useEffect } from "react";
+import { data } from "react-router";
 export default function Home() {
 const [routes, setRoutes] = useState<Route[]>([]);
 const [from, setFrom] = useState("");
@@ -13,12 +14,17 @@ const [criteria, setCriteria] = useState("fare");
 const [results, setResults] = useState<Route[][]>([]);
 const [isSearch, setIsSearch] = useState(false);
 const [routesLoaded, setRoutesLoaded] = useState(false);
-
+const [stops, setStops] = useState<Stop[]>([])
 useEffect(() => {
   fetch("/api/routes")
   .then((res) => res.json())
   .then((data) => setRoutes(data))
+
+  fetch("/api/stops")
+  .then(res => res.json())
+  .then(data => setStops(data))
   .finally(() => setRoutesLoaded(true));
+
 },[]);
 
 useEffect(() => {
@@ -68,7 +74,7 @@ if (ranked === undefined) {
     onSearch={handleClick}
     searchDisabled={!routesLoaded}
   />
-  <ResultsList results={results} isSearch={isSearch}/>
+  <ResultsList results={results} isSearch={isSearch} stops={stops}/>
     </div>
   );
 }
