@@ -5,7 +5,6 @@ import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
 import {findAllPaths, rankRoutes} from "@/utils/routeEngine"
 import { useState, useEffect } from "react";
-import { data } from "react-router";
 export default function Home() {
 const [routes, setRoutes] = useState<Route[]>([]);
 const [from, setFrom] = useState("");
