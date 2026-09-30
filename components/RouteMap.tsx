@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { Route, Stop } from "@/types/index";
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN!;
 
 type RouteMapProps = {
   trip: Route[];
